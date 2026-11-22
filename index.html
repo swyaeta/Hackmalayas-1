@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackmalayas — A YSWS Hackathon in the Himalayas</title>
+  <meta name="description" content="Hackmalayas is a Hack Club YSWS event in the Himalayas. Build games and software for 60 hours, earn wools, and join us in the mountains." />
+  <link rel="icon" href="assets/flag-orpheus-top.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kavoon&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Hack Club Banner -->
+  <a href="https://hackclub.com/" target="_blank" rel="noopener noreferrer" class="hackclub-banner" aria-label="Hack Club">
+    <img src="assets/flag-orpheus-top.svg" alt="Hack Club Flag" />
+  </a>
+
+  <!-- Top Navigation Pill -->
+  <nav class="top-nav" aria-label="Page navigation">
+    <a href="#about">About</a>
+    <a href="#steps">Steps</a>
+    <a href="#rules">Rules</a>
+    <a href="#currency">Currency</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <!-- Snow Toggle Button (Text only, no emoji) -->
+  <button id="snowToggle" class="snow-toggle" aria-label="Toggle snow effect">Snow</button>
+
+  <!-- Hero Section -->
+  <header class="hero-section" id="hero">
+    <div class="hero-bg-container">
+      <img src="assets/himalayas_clear.jpg" alt="Himalayas" class="hero-mountain-img" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">Hackmalayas</h1>
+      <p class="hero-subtitle">
+        A HACKATHON IN<br />
+        THE HIMALAYAS<br />
+        ESTIMATED MARCH 2027
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://rsvp.soon.it/hackmalayas" target="_blank" rel="noopener noreferrer" class="pixel-btn" id="startBtn">START</a>
+        <a href="#about" class="pixel-btn-secondary">EXPLORE ↓</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Scrollable Body (Exact Sky Blue #2767b2 Background) -->
+  <main class="sky-page-body">
+
+    <!-- Subtle Floating Clouds Background -->
+    <div class="clouds-layer" aria-hidden="true">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+    </div>
+
+    <!-- What is Hackmalayas (Left-Aligned Card) -->
+    <section class="section-container align-left" id="about">
+      <div class="content-wrapper">
+        <h2 class="section-heading">What is Hackmalayas</h2>
+        <div class="oasis-card">
+          <div class="card-body">
+            <p>
+              Hackmalayas is a flagship Hack Club event happening in the Himalayas. Build creative games or software projects for 60 hours and you can earn an invite to our coding retreat!
+            </p>
+            <p>
+              Your food and accommodation will be covered — any work you do after getting your ticket counts toward your flight stipend or anything else you might want to purchase from our shop. If you can't make it to the event, use your hours to buy yourself gifts from the shop!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Steps to Attend (Right-Aligned Card) -->
+    <section class="section-container align-right" id="steps">
+      <div class="content-wrapper">
+        <h2 class="section-heading">Steps to attend the irl event</h2>
+        <div class="oasis-card">
+          <ol class="steps-list">
+            <li>
+              <span class="step-num">1</span>
+              <span class="step-title">Get an idea for a game or software project!</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span class="step-title">Build one project or multiple for up to 60 hours</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span class="step-title">Log your hours on Hackatime</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span class="step-title">Ship your project!</span>
+            </li>
+            <li>
+              <span class="step-num">5</span>
+              <span class="step-title">Buy a ticket and become a Hackmalayas attendee!</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rules Section (Left-Aligned Card) -->
+    <section class="section-container align-left" id="rules">
+      <div class="content-wrapper">
+        <h2 class="section-heading">Rules</h2>
+        <div class="oasis-card">
+          <div class="card-body">
+            <ul class="rules-list">
+              <li>
+                <span class="rule-bullet">&bull;</span>
+                <span class="rule-text"><strong>Every project must be open source.</strong></span>
+              </li>
+              <li>
+                <span class="rule-bullet">&bull;</span>
+                <span class="rule-text"><strong>All work must be tracked with Hackatime.</strong></span>
+              </li>
+              <li>
+                <span class="rule-bullet">&bull;</span>
+                <span class="rule-text"><strong>AI may be used only for debugging or very minor tasks only 30%.</strong></span>
+              </li>
+              <li>
+                <span class="rule-bullet">&bull;</span>
+                <span class="rule-text"><strong>Games and software only.</strong> Hardware projects are not accepted for Hackmalayas.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Currency & Shop (Right-Aligned Card, Simple text format like FAQ) -->
+    <section class="section-container align-right" id="currency">
+      <div class="content-wrapper">
+        <h2 class="section-heading">The Currency</h2>
+        <div class="oasis-card">
+          <div class="card-body">
+            <p>
+              Track your hours using <strong>Hackatime</strong> to earn wools. Normal projects get <strong>4 wools per hour</strong>, while snow and nature-themed projects get <strong>5 wools per hour</strong>!
+            </p>
+            <p>
+              The shop will have iPad grants, laptop grants, digicams to click the Himalayas, flight stipends, Hack Club stickers and swag, plus all the other stuff people suggest!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (Centered Card) -->
+    <section class="section-container align-center" id="faq">
+      <div class="content-wrapper max-w-card">
+        <h2 class="section-heading">FAQ</h2>
+        <div class="oasis-card">
+          <div class="faq-accordion">
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What can I build?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Games and software only! Web applications, video games, developer utilities, mobile apps, or alpine tools. Hardware projects are not eligible.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>How do wools work?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Every hour you track on Hackatime earns wools. Normal projects get 4 wools per hour, and snow and nature-themed projects get 5 wools per hour. You can use wools to get iPad grants, laptop grants, digicams, travel stipends, and shop gear.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What are the AI rules?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>AI may be used only for debugging or very minor tasks (maximum 30% of your project). The core project and code must be built by you.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Can beginners come?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes, absolutely! Hack Club is all about learning by building. We have workshops, guides, and mentors to help you ship your very first software project.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Who is eligible to participate?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Any high school or teenage hacker (ages 13–18). Hackers from all over the world are eligible to participate and earn their way here.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Is this free?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Yes! Food, accommodation, and event activities are fully covered. Travel stipends are unlocked using your earned wools.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>When is it?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Estimated in March 2027! Final dates and travel schedules will be announced as registrations lock in.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What is Hack Club?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Hack Club is a 501(c)(3) nonprofit and network of 100k+ technical high schoolers. We believe you learn best by building, and we provide grants and community to help you make awesome projects.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>I have more questions...</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Join the <a href="https://slack.hackclub.com/" target="_blank" rel="noopener noreferrer">Hack Club Slack</a> and find us in the <code>#hackmalayas</code> channel!</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hack Club Info & Credits -->
+    <section class="section-container align-left">
+      <div class="content-wrapper">
+        <div class="oasis-card">
+          <div class="card-body">
+            <p>
+              A project by Hack Clubbers at <a href="https://hackclub.com/" target="_blank" rel="noopener noreferrer" class="link-inline">Hack Club!</a>
+              Hack Club is a 501(c)(3) nonprofit and network of 100k+ technical high schoolers. We believe you learn best by building, so we are creating this community and providing grants so you can make awesome projects. In the past few years, we have sent
+              <a href="https://www.youtube.com/watch?v=ufMUJ9D1fi8" target="_blank" rel="noopener noreferrer" class="link-inline">30 teen hackers hiking the Pacific Crest Trail</a>,
+              <a href="https://www.youtube.com/watch?v=8iM1W8kXrQA" target="_blank" rel="noopener noreferrer" class="link-inline">hosted a hackathon for the worst ideas</a>,
+              <a href="https://youtu.be/dTGFOKblRc4" target="_blank" rel="noopener noreferrer" class="link-inline">flew 200+ teenagers to China to build projects</a>,
+              and ran the largest teen hardware hackathon at GitHub HQ.
+            </p>
+            <p>
+              Read about Hack Club in
+              <a href="https://www.wsj.com/articles/teen-hackers-try-to-convince-parents-they-are-up-to-good-11569922200" target="_blank" rel="noopener noreferrer" class="link-inline">The Wall Street Journal</a>,
+              <a href="https://www.cbsnews.com/sanfrancisco/news/hack-club-hosts-teen-coders-san-francisco/" target="_blank" rel="noopener noreferrer" class="link-inline">CBS News</a>, and
+              <a href="https://www.nasa.gov/learning-resources/space-out-this-summer-with-variety-of-nasa-stem-activities/" target="_blank" rel="noopener noreferrer" class="link-inline">NASA.gov</a>,
+              or watch us on stage with AMD CEO Lisa Su at CES.
+            </p>
+          </div>
+        </div>
+
+        <!-- Links Grid -->
+        <div class="footer-links-grid">
+          <div class="link-col">
+            <h4>community</h4>
+            <ul>
+              <li><a href="https://slack.hackclub.com/" target="_blank" rel="noopener noreferrer">join our slack</a></li>
+              <li><a href="https://events.hackclub.com/" target="_blank" rel="noopener noreferrer">community events</a></li>
+              <li><a href="https://workshops.hackclub.com/" target="_blank" rel="noopener noreferrer">workshops</a></li>
+              <li><a href="https://forms.hackclub.com/bounty" target="_blank" rel="noopener noreferrer">bounty</a></li>
+              <li><a href="https://hackclub.com/conduct/" target="_blank" rel="noopener noreferrer">code of conduct</a></li>
+            </ul>
+          </div>
+          <div class="link-col">
+            <h4>hack club</h4>
+            <ul>
+              <li><a href="https://hackclub.com/philosophy/" target="_blank" rel="noopener noreferrer">philosophy</a></li>
+              <li><a href="https://hackclub.com/team/" target="_blank" rel="noopener noreferrer">our team &amp; board</a></li>
+              <li><a href="https://hackclub.com/brand/" target="_blank" rel="noopener noreferrer">branding</a></li>
+              <li><a href="https://hackclub.com/philanthropy/" target="_blank" rel="noopener noreferrer">donate</a></li>
+              <li><a href="https://hackclub.com/privacy-and-terms" target="_blank" rel="noopener noreferrer">privacy and terms</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Organizer Credits -->
+        <div class="credits-block">
+          <p class="credits-lead">Organized by Swyaeta</p>
+          <p class="credits-dates">Estimated in March 2027 • The Himalayas</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
