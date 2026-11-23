@@ -295,30 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const title = document.querySelector('.hero-title');
 
-// split into letters
-const text = title.textContent.trim();
-title.setAttribute('aria-label', text);
-title.innerHTML = [...text]
-  .map((c, i) => `<span class="ch" aria-hidden="true" style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`)
-  .join('');
+const title = document.querySelector('.hero-title');
 
-let busy = false;
-
-title.addEventListener('click', () => {
-  if (busy) return;
-  busy = true;
-
-  // random shard direction per letter
-  title.querySelectorAll('.ch').forEach(ch => {
-    ch.style.setProperty('--x', `${(Math.random() - 0.5) * 260}px`);
-    ch.style.setProperty('--y', `${(Math.random() - 0.3) * 220}px`);
-    ch.style.setProperty('--r', `${(Math.random() - 0.5) * 200}deg`);
-  });
-
-  title.classList.add('shatter');          // ice breaks
+title.onclick = () => {
+  title.classList.add('break');
   setTimeout(() => {
-    title.classList.toggle('thawed');      // swap frozen <-> normal
-    title.classList.remove('shatter');     // letters fly back in
-    setTimeout(() => (busy = false), 700);
-  }, 650);
-});
+    title.classList.toggle('normal');
+    title.classList.remove('break');
+  }, 500);
+};
