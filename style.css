@@ -165,46 +165,87 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 8vw, 6rem);
   line-height: 1;
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  outline: none;
-
-  /* darker icy blue letters with a slow shine */
-  background: linear-gradient(100deg,
-    #1b4f8a 0%, #2f7fc1 30%, #7cc4ee 50%, #2f7fc1 70%, #1b4f8a 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  -webkit-text-stroke: 2px #0a2a55;
-  filter: drop-shadow(0 3px 0 #06183a) drop-shadow(0 0 12px rgba(60, 150, 220, 0.6));
-
-  animation: shine 6s linear infinite;
-  transition: transform 0.4s;
-}
-
-@keyframes shine {
-  to { background-position: -200% 0; }
+  user-select: none;
+  transform: translateX(-20px);
+  transition: transform 0.5s, filter 0.8s;
+  filter:
+    drop-shadow(0 0 14px rgba(150, 225, 255, 0.75))
+    drop-shadow(0 6px 6px rgba(5, 35, 65, 0.45));
 }
 
 .hero-title:hover {
-  transform: scale(1.03);
+  transform: translateX(-20px) scale(1.04);
 }
 
-/* after click = back to your normal original title */
-.hero-title:focus {
-  animation: none;
-  background: none;
-  -webkit-text-fill-color: #e4f7ff;
+/* each letter */
+.hero-title .ch {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(180deg, #ffffff 0%, #e4f7ff 30%, #9fd8f2 65%, #4f9cc6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-stroke: 2px #78aeca;
-  filter: none;
-  text-shadow:
-    0 -2px 0 #ffffff,
-    0 2px 0 #b8e0ef,
-    2px 4px 0 #7eafc7,
-    3px 6px 0 #426f91,
-    0 8px 8px rgba(5, 35, 65, 0.4);
+  transition:
+    transform 0.65s cubic-bezier(0.2, 0.8, 0.3, 1),
+    opacity 0.5s,
+    -webkit-text-stroke-color 0.8s;
+  animation: sparkle 3.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.18s);
 }
+
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.35) saturate(1.2); }
+}
+
+/* icicles */
+.hero-title::after {
+  content: "";
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  top: 88%;
+  height: 0.5em;
+  background: linear-gradient(180deg, #e4f7ff, #8ccbea 70%, rgba(120, 174, 202, 0.2));
+  clip-path: polygon(
+    0 0, 0 30%, 4% 100%, 8% 30%, 12% 65%, 16% 20%, 20% 90%, 24% 30%,
+    29% 70%, 33% 25%, 38% 100%, 42% 30%, 47% 60%, 52% 20%, 56% 85%,
+    61% 30%, 66% 75%, 71% 25%, 76% 95%, 80% 30%, 85% 65%, 90% 20%,
+    94% 80%, 97% 30%, 100% 40%, 100% 0
+  );
+  transition: opacity 0.6s, transform 0.6s;
+  transform-origin: top;
+  pointer-events: none;
+}
+
+/* shattering */
+.hero-title.shatter .ch {
+  transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(0.4);
+  opacity: 0;
+}
+.hero-title.shatter::after {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+
+.hero-title.thawed {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+}
+.hero-title.thawed .ch {
+  background: none;
+  color: #ffffff;
+  -webkit-text-stroke: 0;
+  animation: none;
+}
+.hero-title.thawed::after {
+  opacity: 0;
+}
+
+
 .hero-subtitle {
   margin-top: 36px;
   font-family: var(--font-pixel);
