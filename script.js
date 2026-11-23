@@ -279,13 +279,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// this is for the title part //
-const title = document.querySelector('.hero-title');
-
-title.onclick = () => {
-  title.classList.add('break');
-  setTimeout(() => {
-    title.classList.toggle('normal');
-    title.classList.remove('break');
-  }, 500);
-};
