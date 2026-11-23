@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     music.play().catch(error => console.log(error));
 
+    triggerWind();
+
     setTimeout(() => {
       windSound.pause();
       windSound.currentTime = 0;
@@ -227,8 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     requestAnimationFrame(draw);
   }
-
-  triggerWind();
 
 
   // AMBIENT SNOW TOGGLE
