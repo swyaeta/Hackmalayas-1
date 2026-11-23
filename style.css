@@ -1,14 +1,14 @@
 :root {
-  --sky-color: #2767b2;
+  --sky-color: #2767b2;  
   --card-bg: #e5c99b;
   --card-text: #000000;
   --btn-teal: #2dd4bf;
   --btn-teal-hover: #5eead4;
-  --btn-teal-active: #14b8a6;
+  --btn-teal-active: #14b8a6; 
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-pixel: 'Press Start 2P', monospace;
   --font-script: 'Kavoon', cursive, sans-serif;
-  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;   /*reminer to keep looking if found smth cooler and fitting*/
 }
 
 *, *::before, *::after {
@@ -36,7 +36,7 @@ a {
   text-decoration: none;
 }
 
-/* Hack Club Flag (Pinned top-left) */
+/* topleft hackclube glag */
 .hackclub-banner {
   position: absolute;
   top: 0;
@@ -46,7 +46,7 @@ a {
   transition: transform 0.2s ease;
 }
 
-.hackclub-banner:hover {
+.hackclub-banner:hover {        
   transform: translateY(4px);
 }
 
@@ -56,7 +56,7 @@ a {
   display: block;
 }
 
-/* Top Navigation (Deliverance style glass pill) */
+
 .top-nav {
   position: fixed;
   top: 16px;
@@ -86,13 +86,13 @@ a {
   transform: translateY(-1px);
 }
 
-/* Snow Toggle Button (Text only, no emoji) */
+/* Snow button*/
 .snow-toggle {
   position: fixed;
   top: 16px;
   right: 20px;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.92);         /*is hard, gotta save it somewhere if decided to try changing it later*/
   border: 2px solid #ffffff;
   border-radius: 999px;
   padding: 7px 18px;
@@ -110,13 +110,13 @@ a {
   transform: translateY(-1px);
 }
 
-.snow-toggle.active {
+.snow-toggle.active {          
   background: #0284c7;
   color: #ffffff;
   border-color: #38bdf8;
 }
 
-/* Hero Section (Natural mountain photo, no extra blue overlay) */
+/* Hero Section*/
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -144,7 +144,7 @@ a {
   filter: contrast(1.06) brightness(1.04) saturate(1.06);
 }
 
-/* Very subtle neutral vignette only — NO extra blue overlay in the hero */
+
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -181,7 +181,7 @@ a {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Hero Action Buttons (START + EXPLORE) */
+/* buttons from hero*/
 .hero-actions {
   margin-top: 42px;
   display: flex;
@@ -240,7 +240,7 @@ a {
   box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Main Sky Page (Matches image sky color #2767b2) */
+/* Main Sky Page, image sky color is #2767b2 if  */
 .sky-page-body {
   position: relative;
   background-color: var(--sky-color);
@@ -248,7 +248,7 @@ a {
   overflow: hidden;
 }
 
-/* Subtle Clouds Layer */
+/* for the subtle cloud, might add image of cloud later */
 .clouds-layer {
   position: absolute;
   inset: 0;
@@ -277,7 +277,7 @@ a {
   right: -150px;
 }
 
-/* Section Containers & Spacing */
+/* section containers & spacing em */
 .section-container {
   position: relative;
   z-index: 10;
@@ -323,7 +323,7 @@ a {
   text-align: center;
 }
 
-/* Iconic Warm Yellow Parchment Card (Hack Oasis Style) */
+/* Warm Yellow Card */
 .oasis-card {
   position: relative;
   border-radius: 28px;
@@ -391,7 +391,7 @@ a {
   line-height: 1.35;
 }
 
-/* Rules Section List */
+/* Rules S List */
 .rules-list {
   list-style: none;
   display: flex;
@@ -418,7 +418,7 @@ a {
   color: #000000;
 }
 
-/* FAQ Accordion */
+/* FAQ  */
 .faq-accordion {
   display: flex;
   flex-direction: column;
@@ -480,7 +480,7 @@ a {
   line-height: 1.6;
 }
 
-/* Footer Links & Credits */
+/* Footer Links & Cre */
 .footer-links-grid {
   margin-top: 48px;
   display: grid;
@@ -528,7 +528,7 @@ a {
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Mobile Adjustments */
+/* dont change this without telling me, dont mess up lol */
 @media (max-width: 768px) {
   .top-nav {
     display: none;
