@@ -164,13 +164,26 @@ a {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(3.5rem, 11vw, 9rem);
+  font-size: clamp(2.5rem, 8vw, 6rem);
   line-height: 1;
   color: #ffffff;
-  -webkit-text-stroke: 2.5px #04184e;
+  -webkit-text-stroke: 2px #04184e;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
 }
 
+.hero-title {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.hero-title:hover {
+  color: #dff8ff;
+  -webkit-text-stroke: 2px #a5eaff;
+  text-shadow:
+    0 0 8px white,
+    0 0 20px #a5eaff,
+    0 0 35px #7ddcff;
+}
 .hero-subtitle {
   margin-top: 36px;
   font-family: var(--font-pixel);
