@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // EXTREME HIMALAYAN WIND - FIRST 13 SECONDS
+  // EXTREME HIMALAYAN WIND - FIRST 4s
   function triggerWind() {
     const hero = document.querySelector('.hero-section');
     if (!hero) return;
@@ -82,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const start = performance.now();
+     const windSound = new Audio('wind.mp3');
+     windSound.volume = 0.7;
+     windSound.play();
+
+   setTimeout(() => {
+    windSound.pause();
+    windSound.currentTime = 0;
+   }, 3000);
 
     function draw(time) {
       const elapsed = time - start;
