@@ -82,14 +82,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const start = performance.now();
-     const windSound = new Audio('wind.mp3');
-     windSound.volume = 0.7;
-     windSound.play();
+    const windSound = new Audio('./wind.mp3');
+    windSound.volume = 0.7;
 
-   setTimeout(() => {
-    windSound.pause();
+    function playWind() {
     windSound.currentTime = 0;
-   }, 3000);
+    windSound.play().catch(error => console.log(error));
+
+    setTimeout(() => {
+      windSound.pause();
+      windSound.currentTime = 0;
+    }, 3000);
+  }
+
+  document.addEventListener('click', playWind, { once: true });
 
     function draw(time) {
       const elapsed = time - start;
