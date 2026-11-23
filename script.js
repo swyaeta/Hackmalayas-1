@@ -2,15 +2,34 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 
+  
   // BACKGROUND MUSIC
   const windSound = new Audio('./wind.mp3');
   const music = new Audio('./remain.mp3');
 
   windSound.volume = 0.7;
-  music.volume = 0;
+  music.volume = 0.25;
   music.loop = true;
 
-  let soundStarted = false;
+  const introScreen = document.getElementById('intro-screen');
+
+  introScreen.addEventListener('click', () => {
+    windSound.play();
+    music.play();
+
+    triggerWind();
+
+    introScreen.style.opacity = '0';
+
+    setTimeout(() => {
+      introScreen.remove();
+
+      windSound.pause();
+      windSound.currentTime = 0;
+
+      music.currentTime = 0;
+    }, 1000);
+  });
 
   // CLICK TO ENTER OVERLAY
   const enterScreen = document.createElement('div');
