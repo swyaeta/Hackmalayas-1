@@ -6,34 +6,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const music = new Audio('./remain.mp3');
 
   windSound.volume = 0.7;
-  music.volume = 0.25;
+  music.volume = 0;
   music.loop = true;
 
-  let musicStarted = false;
+  let soundStarted = false;
 
-  function startMusic() {
-    if (musicStarted) return;
-    musicStarted = true;
+  function startSounds() {
+    if (soundStarted) return;
+
+    soundStarted = true;
 
     windSound.currentTime = 0;
     windSound.play().catch(error => console.log(error));
+
+    music.play().catch(error => console.log(error));
 
     setTimeout(() => {
       windSound.pause();
       windSound.currentTime = 0;
 
-      music.play().catch(error => console.log(error));
+      music.currentTime = 0;
+      music.volume = 0.25;
     }, 3000);
   }
 
-  document.addEventListener('click', startMusic, { once: true });
+  document.addEventListener('click', startSounds, { once: true });
 
 
   // FAQ ACCORDION
   const faqItems = document.querySelectorAll('.faq-item');
 
   faqItems.forEach(item => {
-    item.querySelector('.faq-question').addEventListener('click', () => {
+    const question = item.querySelector('.faq-question');
+
+    if (!question) return;
+
+    question.addEventListener('click', () => {
       const open = item.classList.contains('active');
 
       faqItems.forEach(faq => faq.classList.remove('active'));
@@ -46,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // EXTREME HIMALAYAN WIND - FIRST 4s
   function triggerWind() {
     const hero = document.querySelector('.hero-section');
+
     if (!hero) return;
 
     const canvas = document.createElement('canvas');
@@ -71,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     window.addEventListener('resize', resize);
 
+    // HUGE WIND RIBBONS
     const wind = [];
 
     for (let i = 0; i < 14; i++) {
@@ -84,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // HUGE SWIRLING GUSTS
     const circles = [];
 
     for (let i = 0; i < 7; i++) {
@@ -95,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // FAST BLIZZARD SNOW
     const snow = [];
 
     for (let i = 0; i < 500; i++) {
@@ -126,9 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ctx.clearRect(0, 0, w, h);
 
+      // FULL SCREEN SNOWY HAZE
       ctx.fillStyle = `rgba(225,245,255,${fade * 0.55})`;
       ctx.fillRect(0, 0, w, h);
 
+      // EXTRA WHITE BLIZZARD GUSTS
       const haze = ctx.createLinearGradient(0, 0, w, h);
 
       haze.addColorStop(0, `rgba(255,255,255,${fade * 0.25})`);
@@ -138,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fillStyle = haze;
       ctx.fillRect(0, 0, w, h);
 
+      // WIND RIBBONS
       wind.forEach(s => {
         s.x += s.speed;
 
@@ -147,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i <= 50; i++) {
           const x = s.x - s.length + i * s.length / 50;
+
           const y = s.y * h +
             Math.sin(x * 0.004 + elapsed * 0.008) * s.size +
             Math.cos(x * 0.008 + elapsed * 0.01) * 45;
@@ -170,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
       });
 
+      // SWIRLING WIND
       circles.forEach(c => {
         c.x += 30;
         c.angle += 0.2;
@@ -178,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ctx.beginPath();
         ctx.arc(c.x, c.y * h, c.size, c.angle, c.angle + Math.PI * 1.6);
+
         ctx.strokeStyle = `rgba(255,255,255,${fade * 0.9})`;
         ctx.lineWidth = 8;
         ctx.shadowBlur = 20;
@@ -185,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
       });
 
+      // FAST SNOW STREAKS
       snow.forEach(p => {
         p.x += p.speed;
         p.y += Math.sin(p.x * 0.01) * 2;
@@ -192,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.beginPath();
         ctx.moveTo(p.x - p.length, p.y);
         ctx.lineTo(p.x, p.y);
+
         ctx.strokeStyle = `rgba(255,255,255,${fade})`;
         ctx.lineWidth = p.size;
         ctx.stroke();
@@ -213,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // AMBIENT SNOW TOGGLE
   const snowToggle = document.getElementById('snowToggle');
+
   let snowCanvas = null;
   let snowFrame = null;
   let snowResize = null;
@@ -239,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     resize();
+
     snowResize = resize;
     window.addEventListener('resize', resize);
 
@@ -256,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!snowCanvas) return;
 
       ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+
       ctx.fillStyle = 'white';
 
       flakes.forEach(p => {
@@ -287,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (snowCanvas) snowCanvas.remove();
+
     snowCanvas = null;
   }
 
@@ -303,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // HERO TITLE
+  // FROZEN HERO TITLE
   const title = document.querySelector('.hero-title');
 
   if (title) {
