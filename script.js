@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // CLICK TO ENTER OVERLAY
   const enterScreen = document.createElement('div');
 
-  enterScreen.innerHTML = 'CLICK TO ENTER';
+  enterScreen.innerHTML = 'CLICK';
 
   enterScreen.style.cssText = `
     position: fixed;
