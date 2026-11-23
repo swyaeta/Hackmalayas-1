@@ -1,6 +1,34 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // BACKGROUND MUSIC
+  const windSound = new Audio('./wind.mp3');
+  const music = new Audio('./remain.mp3');
+
+  windSound.volume = 0.7;
+  music.volume = 0.25;
+  music.loop = true;
+
+  let musicStarted = false;
+
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+
+    windSound.currentTime = 0;
+    windSound.play().catch(error => console.log(error));
+
+    setTimeout(() => {
+      windSound.pause();
+      windSound.currentTime = 0;
+
+      music.play().catch(error => console.log(error));
+    }, 3000);
+  }
+
+  document.addEventListener('click', startMusic, { once: true });
+
+
   // FAQ ACCORDION
   const faqItems = document.querySelectorAll('.faq-item');
 
@@ -21,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!hero) return;
 
     const canvas = document.createElement('canvas');
+
     canvas.style.cssText = `
       position:absolute;
       inset:0;
@@ -42,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     window.addEventListener('resize', resize);
 
-    // HUGE WIND RIBBONS
     const wind = [];
 
     for (let i = 0; i < 14; i++) {
@@ -56,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // HUGE SWIRLING GUSTS
     const circles = [];
 
     for (let i = 0; i < 7; i++) {
@@ -68,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // FAST BLIZZARD SNOW
     const snow = [];
 
     for (let i = 0; i < 500; i++) {
@@ -82,20 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const start = performance.now();
-    const windSound = new Audio('./wind.mp3');
-    windSound.volume = 0.7;
-
-    function playWind() {
-    windSound.currentTime = 0;
-    windSound.play().catch(error => console.log(error));
-
-    setTimeout(() => {
-      windSound.pause();
-      windSound.currentTime = 0;
-    }, 3000);
-  }
-
-  document.addEventListener('click', playWind, { once: true });
 
     function draw(time) {
       const elapsed = time - start;
@@ -114,12 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ctx.clearRect(0, 0, w, h);
 
-      // FULL SCREEN SNOWY HAZE
       ctx.fillStyle = `rgba(225,245,255,${fade * 0.55})`;
       ctx.fillRect(0, 0, w, h);
 
-      // EXTRA WHITE BLIZZARD GUSTS
       const haze = ctx.createLinearGradient(0, 0, w, h);
+
       haze.addColorStop(0, `rgba(255,255,255,${fade * 0.25})`);
       haze.addColorStop(0.5, `rgba(220,240,255,${fade * 0.35})`);
       haze.addColorStop(1, `rgba(255,255,255,${fade * 0.25})`);
@@ -127,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fillStyle = haze;
       ctx.fillRect(0, 0, w, h);
 
-      // WIND RIBBONS
       wind.forEach(s => {
         s.x += s.speed;
 
@@ -146,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const gradient = ctx.createLinearGradient(s.x - s.length, 0, s.x, 0);
+
         gradient.addColorStop(0, 'rgba(255,255,255,0)');
         gradient.addColorStop(0.3, `rgba(255,255,255,${fade * 0.8})`);
         gradient.addColorStop(0.7, `rgba(220,245,255,${fade})`);
@@ -159,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
       });
 
-      // SWIRLING WIND
       circles.forEach(c => {
         c.x += 30;
         c.angle += 0.2;
@@ -175,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
       });
 
-      // FAST SNOW STREAKS
       snow.forEach(p => {
         p.x += p.speed;
         p.y += Math.sin(p.x * 0.01) * 2;
@@ -210,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startSnow() {
     snowCanvas = document.createElement('canvas');
+
     snowCanvas.style.cssText = `
       position:fixed;
       inset:0;
@@ -291,16 +301,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+
+  // HERO TITLE
+  const title = document.querySelector('.hero-title');
+
+  if (title) {
+    title.onclick = () => {
+      title.classList.add('break');
+
+      setTimeout(() => {
+        title.classList.toggle('normal');
+        title.classList.remove('break');
+      }, 500);
+    };
+  }
+
 });
-
-const title = document.querySelector('.hero-title');
-
-const title = document.querySelector('.hero-title');
-
-title.onclick = () => {
-  title.classList.add('break');
-  setTimeout(() => {
-    title.classList.toggle('normal');
-    title.classList.remove('break');
-  }, 500);
-};
