@@ -167,13 +167,15 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 8vw, 6rem);
   line-height: 1;
-  color: #e8faff;
-  -webkit-text-stroke: 2px #8bdcff;
+  color: #dff8ff;
+  -webkit-text-stroke: 2px #80d9ff;
   text-shadow:
-    0 0 5px white,
-    0 0 12px #b9edff,
-    0 0 25px #72cfff,
-    0 4px 28px rgba(0, 0, 0, 0.5);
+    0 0 3px white,
+    0 0 8px #d5f5ff,
+    0 0 15px #8be0ff,
+    0 0 25px #42baff,
+    0 0 45px #168edb,
+    0 5px 10px #063b70;
   transition: 0.5s;
   cursor: pointer;
 }
@@ -183,6 +185,7 @@ a {
   -webkit-text-stroke: 2px #04184e;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
 }
+
 
 .hero-subtitle {
   margin-top: 36px;
