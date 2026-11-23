@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(time) {
       const elapsed = time - start;
 
-      if (elapsed >= 5000) {
+      if (elapsed >= 4000) {
         canvas.remove();
         window.removeEventListener('resize', resize);
         return;
       }
 
       const fade = elapsed < 500 ? elapsed / 500 :
-        elapsed > 3500 ? (5000 - elapsed) / 1500 : 1;
+        elapsed > 2500 ? (4000 - elapsed) / 1500 : 1;
 
       const w = canvas.width;
       const h = canvas.height;
