@@ -41,7 +41,7 @@ introScreen.addEventListener('click', async () => {
   // CLICK TO ENTER OVERLAY
   const enterScreen = document.createElement('div');
 
-  enterScreen.innerHTML = 'AGhh gust!! Click to not fly out.....';
+  enterScreen.innerHTML = 'Where??';
 
   enterScreen.style.cssText = `
     position: fixed;
@@ -51,7 +51,7 @@ introScreen.addEventListener('click', async () => {
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.35);
-    color: white;
+    color: blue;
     font-family: inherit;
     font-size: clamp(28px, 5vw, 65px);
     font-weight: 600;
