@@ -163,18 +163,19 @@ a {
 }
 
 
-
 .hero-title {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 8vw, 6rem);
   line-height: 1;
-  color: #d9f2fa;
-  -webkit-text-stroke: 2px #659bb5;
+  color: #e4f7ff;
+  -webkit-text-stroke: 2px #78aeca;
   text-shadow:
-    0 2px 0 #f4fcff,
-    0 4px 0 #a5cddd,
-    2px 5px 0 #527e9b,
-    0 7px 5px rgba(10, 40, 65, 0.4);
+    0 -2px 0 #ffffff,
+    0 2px 0 #b8e0ef,
+    2px 4px 0 #7eafc7,
+    3px 6px 0 #426f91,
+    0 8px 8px rgba(5, 35, 65, 0.4);
+  transform: translateX(-20px);
   transition: 0.5s;
   cursor: pointer;
 }
@@ -183,8 +184,8 @@ a {
   color: #ffffff;
   -webkit-text-stroke: 2px #04184e;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+  transform: translateX(-20px) scale(1.04);
 }
-
 
 
 .hero-subtitle {
