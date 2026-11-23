@@ -3,33 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-  // BACKGROUND MUSIC
-  const windSound = new Audio('./wind.mp3');
-  const music = new Audio('./remain.mp3');
+// BACKGROUND MUSIC
+const windSound = new Audio('./wind.mp3');
+const music = new Audio('./remain.mp3');
 
-  windSound.volume = 0.7;
-  music.volume = 0.25;
-  music.loop = true;
+windSound.volume = 0.7;
+music.volume = 0;
+music.loop = true;
 
-  const introScreen = document.getElementById('intro-screen');
+const introScreen = document.getElementById('intro-screen');
 
-  introScreen.addEventListener('click', () => {
-    windSound.play();
-    music.play();
+introScreen.addEventListener('click', async () => {
+  try {
+    await windSound.play();
+    await music.play();
 
     triggerWind();
 
     introScreen.style.opacity = '0';
+    introScreen.style.pointerEvents = 'none';
 
     setTimeout(() => {
-      introScreen.remove();
-
       windSound.pause();
       windSound.currentTime = 0;
 
       music.currentTime = 0;
+      music.volume = 0.25;
+
+      introScreen.remove();
     }, 1000);
-  });
+
+  } catch (error) {
+    console.log('Audio could not start:', error);
+  }
+});
 
   // CLICK TO ENTER OVERLAY
   const enterScreen = document.createElement('div');
