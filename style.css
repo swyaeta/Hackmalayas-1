@@ -163,28 +163,28 @@ a {
 }
 
 
+
 .hero-title {
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 8vw, 6rem);
   line-height: 1;
-  color: #dff8ff;
-  -webkit-text-stroke: 2px #80d9ff;
+  color: #d9f2fa;
+  -webkit-text-stroke: 2px #659bb5;
   text-shadow:
-    0 0 3px white,
-    0 0 8px #d5f5ff,
-    0 0 15px #8be0ff,
-    0 0 25px #42baff,
-    0 0 45px #168edb,
-    0 5px 10px #063b70;
+    0 2px 0 #f4fcff,
+    0 4px 0 #a5cddd,
+    2px 5px 0 #527e9b,
+    0 7px 5px rgba(10, 40, 65, 0.4);
   transition: 0.5s;
   cursor: pointer;
 }
 
 .hero-title:hover {
-  color: white;
+  color: #ffffff;
   -webkit-text-stroke: 2px #04184e;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
 }
+
 
 
 .hero-subtitle {
