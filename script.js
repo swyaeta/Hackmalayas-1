@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     const startTime = performance.now();
-    const duration = 5000; // Strictly 5 seconds in the start only
+    const duration = 10000; // Strictly 5 seconds in the start only
     let animId = null;
 
     function render(now) {
@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let globalFade = 1;
       if (elapsed < 600) {
         globalFade = elapsed / 600;
-      } else if (elapsed > 3600) {
-        globalFade = Math.max(0, 1 - (elapsed - 3600) / 1400);
+      } else if (elapsed > 8000) {
+        globalFade = Math.max(0, 1 - (elapsed - 8000) / 2000);
       }
 
       ctx.clearRect(0, 0, w, h);
