@@ -1,64 +1,55 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // BACKGROUND MUSIC + INTRO SCREEN
+  const windSound = new Audio('./wind.mp3');
+  const music = new Audio('./remain.mp3');
 
-  
-// BACKGROUND MUSIC + INTRO SCREEN
-const windSound = new Audio('./wind.mp3');
-const music = new Audio('./remain.mp3');
+  windSound.volume = 0.7;
+  music.volume = 0;
+  music.loop = true;
 
-windSound.volume = 0.7;
-music.volume = 0;
-music.loop = true;
+  const introScreen = document.getElementById('intro-screen');
 
-const introScreen = document.getElementById('intro-screen');
+  let soundStarted = false;
 
-let soundStarted = false;
+  if (introScreen) {
+    introScreen.addEventListener('click', async () => {
+      if (soundStarted) return;
 
-introScreen.addEventListener('click', async () => {
-  if (soundStarted) return;
+      soundStarted = true;
 
-  soundStarted = true;
+      try {
+        windSound.currentTime = 0;
+        music.currentTime = 0;
 
-  try {
-    windSound.currentTime = 0;
-    music.currentTime = 0;
+        await windSound.play();
 
-    await windSound.play();
+        music.play().catch(error => console.log(error));
 
-    music.play().catch(error => console.log(error));
+        triggerWind();
 
-    triggerWind();
+        introScreen.style.opacity = '0';
+        introScreen.style.pointerEvents = 'none';
 
-    introScreen.style.opacity = '0';
-    introScreen.style.pointerEvents = 'none';
+        setTimeout(() => {
+          windSound.pause();
+          windSound.currentTime = 0;
 
-    setTimeout(() => {
-      windSound.pause();
-      windSound.currentTime = 0;
+          music.currentTime = 0;
+          music.volume = 0.25;
+        }, 3000);
 
-      music.currentTime = 0;
-      music.volume = 0.25;
-    }, 3000);
+        setTimeout(() => {
+          introScreen.remove();
+        }, 1500);
 
-    setTimeout(() => {
-      introScreen.remove();
-    }, 1500);
-
-  } catch (error) {
-    console.log('Sound error:', error);
-    soundStarted = false;
+      } catch (error) {
+        console.log('Sound error:', error);
+        soundStarted = false;
+      }
+    });
   }
-});
-
-  // TRY AUTOPLAY
-  startSounds();
-
-  // FALLBACK CLICK
-  enterScreen.addEventListener('click', () => {
-    startSounds();
-  });
-
 
 
   // FAQ ACCORDION
@@ -79,7 +70,7 @@ introScreen.addEventListener('click', async () => {
   });
 
 
-  // EXTREME HIMALAYAN WIND - FIRST 4s
+  // EXTREME HIMALAYAN WIND - FIRST 5s
   function triggerWind() {
     const hero = document.querySelector('.hero-section');
 
@@ -134,7 +125,7 @@ introScreen.addEventListener('click', async () => {
       });
     }
 
-    // FAST BLIZZARD SNOW
+    // BIG BLIZZARD SNOW
     const snow = [];
 
     for (let i = 0; i < 500; i++) {
@@ -142,8 +133,8 @@ introScreen.addEventListener('click', async () => {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         speed: Math.random() * 45 + 25,
-        length: Math.random() * 100 + 30,
-        size: Math.random() * 3 + 1
+        length: Math.random() * 120 + 40,
+        size: Math.random() * 4 + 2
       });
     }
 
@@ -231,7 +222,7 @@ introScreen.addEventListener('click', async () => {
         ctx.stroke();
       });
 
-      // FAST SNOW STREAKS
+      // BIG FAST SNOW STREAKS
       snow.forEach(p => {
         p.x += p.speed;
         p.y += Math.sin(p.x * 0.01) * 2;
@@ -242,6 +233,7 @@ introScreen.addEventListener('click', async () => {
 
         ctx.strokeStyle = `rgba(255,255,255,${fade})`;
         ctx.lineWidth = p.size;
+        ctx.lineCap = 'round';
         ctx.stroke();
 
         if (p.x > w + 100) {
@@ -257,7 +249,7 @@ introScreen.addEventListener('click', async () => {
   }
 
 
-  // AMBIENT SNOW TOGGLE
+  // BIG AMBIENT SNOW TOGGLE
   const snowToggle = document.getElementById('snowToggle');
 
   let snowCanvas = null;
@@ -265,6 +257,8 @@ introScreen.addEventListener('click', async () => {
   let snowResize = null;
 
   function startSnow() {
+    if (snowCanvas) return;
+
     snowCanvas = document.createElement('canvas');
 
     snowCanvas.style.cssText = `
@@ -292,11 +286,14 @@ introScreen.addEventListener('click', async () => {
 
     const flakes = [];
 
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 100; i++) {
       flakes.push({
         x: Math.random() * snowCanvas.width,
         y: Math.random() * snowCanvas.height,
-        speed: Math.random() + 0.5
+        radius: Math.random() * 3.5 + 2,
+        speed: Math.random() * 1.5 + 0.7,
+        drift: Math.random() * 0.8 - 0.4,
+        opacity: Math.random() * 0.5 + 0.5
       });
     }
 
@@ -305,20 +302,26 @@ introScreen.addEventListener('click', async () => {
 
       ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
 
-      ctx.fillStyle = 'white';
-
       flakes.forEach(p => {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'white';
         ctx.fill();
+        ctx.shadowBlur = 0;
 
         p.y += p.speed;
-        p.x += 0.3;
+        p.x += p.drift;
 
-        if (p.y > snowCanvas.height) {
-          p.y = -5;
+        if (p.y > snowCanvas.height + 10) {
+          p.y = -10;
           p.x = Math.random() * snowCanvas.width;
         }
+
+        if (p.x > snowCanvas.width + 10) p.x = -10;
+        if (p.x < -10) p.x = snowCanvas.width + 10;
       });
 
       snowFrame = requestAnimationFrame(draw);
