@@ -127,15 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // BLIZZARD SNOW
     const snow = [];
 
-    for (let i = 0; i < 500; i++) {
-      snow.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speed: Math.random() * 45 + 25,
-        length: Math.random() * 120 + 40,
-        size: Math.random() * 4 + 2
-      });
-    }
+   for (let i = 0; i < 250; i++) {
+  snow.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speed: Math.random() * 20 + 10,
+    length: Math.random() * 35 + 15,
+    size: Math.random() * 1 + 0.5
+  });
+}
 
     const start = performance.now();
 
