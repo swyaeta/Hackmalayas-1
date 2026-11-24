@@ -11,43 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const introScreen = document.getElementById('intro-screen');
 
-  let soundStarted = false;
-
   if (introScreen) {
-    introScreen.addEventListener('click', async () => {
-      if (soundStarted) return;
+    introScreen.addEventListener('click', () => {
 
-      soundStarted = true;
+      const windPromise = windSound.play();
+      const musicPromise = music.play();
 
-      try {
-        windSound.currentTime = 0;
-        music.currentTime = 0;
+      triggerWind();
 
-        await windSound.play();
-
-        music.play().catch(error => console.log(error));
-
-        triggerWind();
-
-        introScreen.style.opacity = '0';
-        introScreen.style.pointerEvents = 'none';
-
-        setTimeout(() => {
-          windSound.pause();
-          windSound.currentTime = 0;
-
-          music.currentTime = 0;
-          music.volume = 0.25;
-        }, 3000);
-
-        setTimeout(() => {
-          introScreen.remove();
-        }, 1500);
-
-      } catch (error) {
-        console.log('Sound error:', error);
-        soundStarted = false;
+      if (windPromise) {
+        windPromise.catch(error => console.log('Wind sound:', error));
       }
+
+      if (musicPromise) {
+        musicPromise.catch(error => console.log('Background music:', error));
+      }
+
+      introScreen.style.opacity = '0';
+      introScreen.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        windSound.pause();
+        windSound.currentTime = 0;
+        music.volume = 0.25;
+      }, 3000);
+
+      setTimeout(() => {
+        introScreen.remove();
+      }, 1500);
     });
   }
 
@@ -63,194 +54,132 @@ document.addEventListener('DOMContentLoaded', () => {
     question.addEventListener('click', () => {
       const open = item.classList.contains('active');
 
-      faqItems.forEach(faq => faq.classList.remove('active'));
+      faqItems.forEach(faq => {
+        faq.classList.remove('active');
+      });
 
-      if (!open) item.classList.add('active');
+      if (!open) {
+        item.classList.add('active');
+      }
     });
   });
 
 
-  // EXTREME HIMALAYAN WIND - FIRST 5s
+  // WIND ANIMATION
   function triggerWind() {
     const hero = document.querySelector('.hero-section');
 
     if (!hero) return;
 
     const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
     canvas.style.cssText = `
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:15;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
     `;
 
     hero.appendChild(canvas);
 
-    const ctx = canvas.getContext('2d');
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
 
-    function resize() {
-      canvas.width = hero.offsetWidth;
-      canvas.height = hero.offsetHeight;
-    }
+    const width = canvas.width;
+    const height = canvas.height;
 
-    resize();
-    window.addEventListener('resize', resize);
-
-    // HUGE WIND RIBBONS
-    const wind = [];
-
-    for (let i = 0; i < 14; i++) {
-      wind.push({
-        x: -Math.random() * 2000,
-        y: Math.random(),
-        speed: Math.random() * 35 + 25,
-        size: Math.random() * 150 + 100,
-        width: Math.random() * 30 + 15,
-        length: Math.random() * 1500 + 1000
-      });
-    }
-
-    // HUGE SWIRLING GUSTS
-    const circles = [];
-
-    for (let i = 0; i < 7; i++) {
-      circles.push({
-        x: -Math.random() * 1800,
-        y: Math.random(),
-        size: Math.random() * 150 + 100,
-        angle: Math.random() * 6
-      });
-    }
-
-    // BIG BLIZZARD SNOW
+    const ribbons = [];
     const snow = [];
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 12; i++) {
+      ribbons.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        length: Math.random() * 180 + 100,
+        speed: Math.random() * 5 + 3,
+        angle: Math.random() * 0.5 - 0.25,
+        opacity: Math.random() * 0.3 + 0.1
+      });
+    }
+
+    for (let i = 0; i < 100; i++) {
       snow.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speed: Math.random() * 45 + 25,
-        length: Math.random() * 120 + 40,
-        size: Math.random() * 4 + 2
+        x: Math.random() * width,
+        y: Math.random() * height,
+        speed: Math.random() * 8 + 4,
+        size: Math.random() * 3 + 1
       });
     }
 
-    const start = performance.now();
+    let startTime = null;
 
-    function draw(time) {
-      const elapsed = time - start;
+    function animate(timestamp) {
+      if (!startTime) startTime = timestamp;
 
-      if (elapsed >= 5000) {
-        canvas.remove();
-        window.removeEventListener('resize', resize);
-        return;
-      }
+      const elapsed = timestamp - startTime;
 
-      const fade = elapsed < 500 ? elapsed / 500 :
-        elapsed > 3500 ? (5000 - elapsed) / 1500 : 1;
+      ctx.clearRect(0, 0, width, height);
 
-      const w = canvas.width;
-      const h = canvas.height;
+      const fade = Math.min(1, elapsed / 1000) *
+        Math.max(0, 1 - elapsed / 5000);
 
-      ctx.clearRect(0, 0, w, h);
-
-      // FULL SCREEN SNOWY HAZE
-      ctx.fillStyle = `rgba(225,245,255,${fade * 0.55})`;
-      ctx.fillRect(0, 0, w, h);
-
-      // EXTRA WHITE BLIZZARD GUSTS
-      const haze = ctx.createLinearGradient(0, 0, w, h);
-
-      haze.addColorStop(0, `rgba(255,255,255,${fade * 0.25})`);
-      haze.addColorStop(0.5, `rgba(220,240,255,${fade * 0.35})`);
-      haze.addColorStop(1, `rgba(255,255,255,${fade * 0.25})`);
-
-      ctx.fillStyle = haze;
-      ctx.fillRect(0, 0, w, h);
-
-      // WIND RIBBONS
-      wind.forEach(s => {
-        s.x += s.speed;
-
-        if (s.x - s.length > w) s.x = -s.length;
-
+      ribbons.forEach(r => {
         ctx.beginPath();
+        ctx.moveTo(r.x, r.y);
+        ctx.quadraticCurveTo(
+          r.x + r.length / 2,
+          r.y - 30,
+          r.x + r.length,
+          r.y + r.angle * 100
+        );
 
-        for (let i = 0; i <= 50; i++) {
-          const x = s.x - s.length + i * s.length / 50;
+        ctx.strokeStyle = `rgba(255,255,255,${r.opacity * fade})`;
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = 'white';
+        ctx.stroke();
+        ctx.shadowBlur = 0;
 
-          const y = s.y * h +
-            Math.sin(x * 0.004 + elapsed * 0.008) * s.size +
-            Math.cos(x * 0.008 + elapsed * 0.01) * 45;
+        r.x += r.speed;
 
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+        if (r.x > width + r.length) {
+          r.x = -r.length;
+          r.y = Math.random() * height;
         }
-
-        const gradient = ctx.createLinearGradient(s.x - s.length, 0, s.x, 0);
-
-        gradient.addColorStop(0, 'rgba(255,255,255,0)');
-        gradient.addColorStop(0.3, `rgba(255,255,255,${fade * 0.8})`);
-        gradient.addColorStop(0.7, `rgba(220,245,255,${fade})`);
-        gradient.addColorStop(1, 'rgba(255,255,255,0)');
-
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = s.width;
-        ctx.lineCap = 'round';
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = 'white';
-        ctx.stroke();
       });
 
-      // SWIRLING WIND
-      circles.forEach(c => {
-        c.x += 30;
-        c.angle += 0.2;
-
-        if (c.x > w + c.size) c.x = -c.size;
-
-        ctx.beginPath();
-        ctx.arc(c.x, c.y * h, c.size, c.angle, c.angle + Math.PI * 1.6);
-
-        ctx.strokeStyle = `rgba(255,255,255,${fade * 0.9})`;
-        ctx.lineWidth = 8;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = 'white';
-        ctx.stroke();
-      });
-
-      // BIG FAST SNOW STREAKS
       snow.forEach(p => {
-        p.x += p.speed;
-        p.y += Math.sin(p.x * 0.01) * 2;
-
         ctx.beginPath();
-        ctx.moveTo(p.x - p.length, p.y);
-        ctx.lineTo(p.x, p.y);
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x - p.speed * 2, p.y + p.speed * 3);
 
-        ctx.strokeStyle = `rgba(255,255,255,${fade})`;
+        ctx.strokeStyle = `rgba(255,255,255,${fade * 0.8})`;
         ctx.lineWidth = p.size;
-        ctx.lineCap = 'round';
         ctx.stroke();
 
-        if (p.x > w + 100) {
-          p.x = -100;
-          p.y = Math.random() * h;
-        }
+        p.x += p.speed;
+        p.y += p.speed * 0.5;
+
+        if (p.x > width) p.x = 0;
+        if (p.y > height) p.y = 0;
       });
 
-      requestAnimationFrame(draw);
+      if (elapsed < 5000) {
+        requestAnimationFrame(animate);
+      } else {
+        canvas.remove();
+      }
     }
 
-    requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
   }
 
 
-  // BIG AMBIENT SNOW TOGGLE
-  const snowToggle = document.getElementById('snowToggle');
+  // AMBIENT SNOW
+  const snowToggle = document.querySelector('#snowToggle, .snow-toggle');
 
   let snowCanvas = null;
   let snowFrame = null;
@@ -262,12 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
     snowCanvas = document.createElement('canvas');
 
     snowCanvas.style.cssText = `
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:99;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 99;
     `;
 
     document.body.appendChild(snowCanvas);
@@ -286,14 +215,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const flakes = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 150; i++) {
       flakes.push({
         x: Math.random() * snowCanvas.width,
         y: Math.random() * snowCanvas.height,
-        radius: Math.random() * 3.5 + 2,
-        speed: Math.random() * 1.5 + 0.7,
-        drift: Math.random() * 0.8 - 0.4,
-        opacity: Math.random() * 0.5 + 0.5
+        radius: Math.random() * 4 + 2.5,
+        speed: Math.random() * 1.8 + 0.8,
+        drift: Math.random() * 1 - 0.5,
+        opacity: Math.random() * 0.4 + 0.6
       });
     }
 
@@ -306,11 +235,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
+        // NO GLOW EFFECT
         ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = 'white';
         ctx.fill();
-        ctx.shadowBlur = 0;
 
         p.y += p.speed;
         p.x += p.drift;
@@ -330,8 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   }
 
+
   function stopSnow() {
-    cancelAnimationFrame(snowFrame);
+    if (snowFrame) cancelAnimationFrame(snowFrame);
 
     if (snowResize) {
       window.removeEventListener('resize', snowResize);
@@ -341,9 +269,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (snowCanvas) snowCanvas.remove();
 
     snowCanvas = null;
+    snowFrame = null;
   }
 
+
+  // START SNOW AUTOMATICALLY
+  startSnow();
+
   if (snowToggle) {
+    snowToggle.classList.add('active');
+
     snowToggle.addEventListener('click', () => {
       snowToggle.classList.toggle('active');
 
@@ -356,18 +291,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // FROZEN HERO TITLE
-  const title = document.querySelector('.hero-title');
+  // FROZEN HERO TITLE CLICK
+  const frozenTitle = document.querySelector('.hero-title');
 
-  if (title) {
-    title.onclick = () => {
-      title.classList.add('break');
-
-      setTimeout(() => {
-        title.classList.toggle('normal');
-        title.classList.remove('break');
-      }, 500);
-    };
+  if (frozenTitle) {
+    frozenTitle.addEventListener('click', () => {
+      frozenTitle.classList.toggle('frozen');
+    });
   }
 
 });
