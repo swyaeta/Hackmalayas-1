@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-// BACKGROUND MUSIC
+// BACKGROUND MUSIC + INTRO SCREEN
 const windSound = new Audio('./wind.mp3');
 const music = new Audio('./remain.mp3');
 
@@ -13,10 +13,20 @@ music.loop = true;
 
 const introScreen = document.getElementById('intro-screen');
 
+let soundStarted = false;
+
 introScreen.addEventListener('click', async () => {
+  if (soundStarted) return;
+
+  soundStarted = true;
+
   try {
+    windSound.currentTime = 0;
+    music.currentTime = 0;
+
     await windSound.play();
-    await music.play();
+
+    music.play().catch(error => console.log(error));
 
     triggerWind();
 
@@ -29,76 +39,17 @@ introScreen.addEventListener('click', async () => {
 
       music.currentTime = 0;
       music.volume = 0.25;
-
-      introScreen.remove();
-    }, 1000);
-
-  } catch (error) {
-    console.log('Audio could not start:', error);
-  }
-});
-
-  // CLICK TO ENTER OVERLAY
-  const enterScreen = document.createElement('div');
-
-  enterScreen.innerHTML = 'Where??';
-
-  enterScreen.style.cssText = `
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.35);
-    color: blue;
-    font-family: inherit;
-    font-size: clamp(28px, 5vw, 65px);
-    font-weight: 600;
-    letter-spacing: 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: opacity 0.8s ease;
-  `;
-
-  document.body.appendChild(enterScreen);
-
-  function hideEnterScreen() {
-    enterScreen.style.opacity = '0';
+    }, 3000);
 
     setTimeout(() => {
-      enterScreen.remove();
-    }, 800);
+      introScreen.remove();
+    }, 1500);
+
+  } catch (error) {
+    console.log('Sound error:', error);
+    soundStarted = false;
   }
-
-  function startSounds() {
-    if (soundStarted) return;
-
-    soundStarted = true;
-
-    windSound.currentTime = 0;
-    music.currentTime = 0;
-
-    const windPromise = windSound.play();
-    const musicPromise = music.play();
-
-    Promise.all([windPromise, musicPromise])
-      .then(() => {
-        hideEnterScreen();
-        triggerWind();
-
-        setTimeout(() => {
-          windSound.pause();
-          windSound.currentTime = 0;
-
-          music.currentTime = 0;
-          music.volume = 0.25;
-        }, 3000);
-      })
-      .catch(() => {
-        soundStarted = false;
-      });
-  }
+});
 
   // TRY AUTOPLAY
   startSounds();
