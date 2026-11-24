@@ -152,14 +152,14 @@ introScreen.addEventListener('click', async () => {
     function draw(time) {
       const elapsed = time - start;
 
-      if (elapsed >= 6000) {
+      if (elapsed >= 5000) {
         canvas.remove();
         window.removeEventListener('resize', resize);
         return;
       }
 
       const fade = elapsed < 500 ? elapsed / 500 :
-        elapsed > 4500 ? (6000 - elapsed) / 1500 : 1;
+        elapsed > 3500 ? (5000 - elapsed) / 1500 : 1;
 
       const w = canvas.width;
       const h = canvas.height;
