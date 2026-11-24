@@ -342,11 +342,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // START SNOW AUTOMATICALLY
-  startSnow();
-
+  // SNOW TOGGLE - OFF BY DEFAULT
   if (snowToggle) {
-    snowToggle.classList.add('active');
+    snowToggle.classList.remove('active');
 
     snowToggle.addEventListener('click', () => {
       snowToggle.classList.toggle('active');
